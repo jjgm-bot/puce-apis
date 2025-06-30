@@ -1,19 +1,18 @@
 openapi: 3.1.0
 info:
-  title: Redocly Museum API
-  description: An imaginary, but delightful Museum API for interacting with museum services and information. Built with love by Redocly.
-  version: 1.0.0
+  title: PUCE Banner Data API
+  version: "1.0.0"
+  description: >
+    API de lectura que proporciona datos del sistema Banner: programas académicos, períodos y catálogos de referencia.
+
   contact:
-    email: team@redocly.com
-    url: 'https://redocly.com/docs/cli/'
+    email: www.puce.edu.ecxxx
+    url: 'https://www.puce.edu.ecxxx'
   x-logo:
-    url: 'https://redocly.github.io/redoc/museum-logo.png'
-    altText: Museum logo
-  license:
-    name: MIT
-    url: 'https://opensource.org/license/mit/ '
-servers:
-  - url: 'https://api.fake-museum-example.com/v1'
+    url: 'https://www.puce.edu.ec/wp-content/uploads/2020/09/logo.png'
+    altText: PUCE logo
+ 
+ 
 paths:
   /museum-hours:
     get:
@@ -785,3 +784,154 @@ x-tagGroups:
 
 security:
   - MuseumPlaceholderAuth: []
+paths:
+  /banner/data/academicprograms:
+    get:
+      tags:
+        - Programas Académicos
+      summary: Obtener programas académicos por campus
+      description: >
+        Retorna los programas académicos vigentes por campus, detallando facultad, modalidad, nivel y descripción.
+      parameters:
+        - name: id
+          in: query
+          required: true
+          description: Código del campus (ej: IBA, QUI)
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Lista de programas académicos
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AcademicProgram'
+        '400':
+          description: Parámetro requerido ausente o inválido
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /banner/data/academicperiods:
+    get:
+      tags:
+        - Períodos Académicos
+      summary: Listar períodos académicos
+      description: >
+        Lista los períodos académicos recientes, excluyendo códigos de prueba (como 99_%).
+      responses:
+        '200':
+          description: Lista de períodos académicos
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AcademicPeriod'
+
+  /banner/data/getdata:
+    get:
+      tags:
+        - Catálogos Generales
+      summary: Obtener catálogos de referencia
+      description: >
+        Retorna elementos de catálogo utilizados en registros personales o académicos.
+        Ejemplos de tipo:
+        - typesLegacy
+        - maritalStatus
+        - ethnicity
+        - gender
+        - nationality
+        - emailType
+        - campus
+        - schools
+        - disability
+        - etc.
+      parameters:
+        - name: type
+          in: query
+          required: true
+          description: Tipo de catálogo a consultar
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Lista de elementos del catálogo solicitado
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CatalogItem'
+        '400':
+          description: Parámetro requerido ausente o inválido
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+components:
+  schemas:
+    AcademicProgram:
+      type: object
+      properties:
+        code:
+          type: string
+          description: Código del programa
+        name:
+          type: string
+          description: Nombre del programa académico
+        campus:
+          type: string
+        level:
+          type: string
+        faculty:
+          type: string
+        degree:
+          type: string
+        institution:
+          type: string
+
+    AcademicPeriod:
+      type: object
+      properties:
+        code:
+          type: string
+          example: 202501
+        name:
+          type: string
+          example: 2025-01
+        description:
+          type: string
+          example: Primer Período 2025
+        start_date:
+          type: string
+          format: date
+          example: 2025-03-01
+        end_date:
+          type: string
+          format: date
+          example: 2025-07-31
+
+    CatalogItem:
+      type: object
+      properties:
+        code:
+          type: string
+          example: STVETHN
+        description:
+          type: string
+          example: Etnias
+        title:
+          type: string
+          example: Grupo étnico
+
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          example: Parámetro "type" faltante
