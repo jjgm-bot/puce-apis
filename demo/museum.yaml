@@ -1,74 +1,22 @@
-openapi: 3.1.0
+openapi: 3.0.3
 info:
   title: PUCE Banner Data API
   version: "1.0.0"
-  description: API de lectura que proporciona datos del sistema Banner: programas académicos, períodos y catálogos de referencia.
+  description: >
+    API de lectura que proporciona datos del sistema Banner: programas académicos, períodos y catálogos de referencia.
 
-  contact:
-    email: www.puce.edu.ecxxx
-    url: 'https://www.puce.edu.ecxxx'
-  x-logo:
-    url: 'https://www.puce.edu.ec/wp-content/uploads/2020/09/logo.png'
-    altText: PUCE logo
- 
- 
+servers:
+  - url: https://pucewsd.puce.edu.ec
+
+tags:
+  - name: Programas Académicos
+    description: Servicios relacionados con la consulta de programas académicos por campus
+  - name: Períodos Académicos
+    description: Servicios para obtener los períodos académicos recientes
+  - name: Catálogos Generales
+    description: Catálogos de referencia utilizados en formularios, validaciones y sincronización de datos
+
 paths:
- 
-    get:
-      summary: List special events
-      description: Return a list of upcoming special events at the museum.
-      security: []
-      operationId: listSpecialEvents
-      x-badges:
-        - name: 'Gamma'
-      tags:
-        - Events
-      parameters:
-        - name: startDate
-          in: query
-          description: The starting date to retrieve future operating hours from. Defaults to today's date.
-          schema:
-            type: string
-            format: date
-            example: 2023-02-23
-        - name: endDate
-          in: query
-          description: The end of a date range to retrieve special events for. Defaults to 7 days after `startDate`.
-          schema:
-            type: string
-            format: date
-            example: 2023-04-18
-        - name: page
-          in: query
-          description: The page number to retrieve.
-          schema:
-            type: integer
-            default: 1
-            example: 2
-        - name: limit
-          in: query
-          description: The number of days per page.
-          schema:
-            type: integer
-            default: 10
-            maximum: 30
-            example: 15
-
-      responses:
-        '200':
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ListSpecialEventsResponse'
-              examples:
-                default_example:
-                  $ref: '#/components/examples/ListSpecialEventsResponseExample'
-        '400':
-          description: Bad request
-        '404':
-          description: Not found
-
   /banner/data/academicprograms:
     get:
       tags:
@@ -219,162 +167,3 @@ components:
         error:
           type: string
           example: Parámetro "type" faltante
-
-          
-  /special-events/{eventId}:
-    get:
-      summary: Get special event
-      description: Get details about a special event.
-      operationId: getSpecialEvent
-      tags:
-        - Events
-      parameters:
-        - $ref: '#/components/parameters/EventId'
-      responses:
-        '200':
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/SpecialEventResponse'
-              examples:
-                default_example:
-                  $ref: '#/components/examples/GetSpecialEventResponseExample'
-        '400':
-          description: Bad request
-        '404':
-          description: Not found
-    patch:
-      summary: Update special event
-      description: Update the details of a special event
-      operationId: updateSpecialEvent
-      tags:
-        - Events
-      parameters:
-        - $ref: '#/components/parameters/EventId'
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/UpdateSpecialEventRequest'
-            examples:
-              default_example:
-                $ref: '#/components/examples/UpdateSpecialEventRequestExample'
-      responses:
-        '200':
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/SpecialEventResponse'
-              examples:
-                default_example:
-                  $ref: '#/components/examples/UpdateSpecialEventResponseExample'
-        '400':
-          description: Bad request
-        '404':
-          description: Not found
-    delete:
-      summary: Delete special event
-      description: Delete a special event from the collection. Allows museum to cancel planned events.
-      operationId: deleteSpecialEvent
-      tags:
-        - Events
-      parameters:
-        - $ref: '#/components/parameters/EventId'
-      responses:
-        '204':
-          description: Success - no content
-        '400':
-          description: Bad request
-        '401':
-          description: Unauthorized
-        '404':
-          description: Not found
-  /tickets:
-    post:
-      summary: Buy museum tickets
-      description: Purchase museum tickets for general entry or special events.
-      operationId: buyMuseumTickets
-      tags:
-        - Tickets
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/BuyMuseumTicketsRequest'
-            examples:
-              general_entry:
-                $ref: '#/components/examples/BuyGeneralTicketsRequestExample'
-              event_entry:
-                $ref: '#/components/examples/BuyEventTicketsRequestExample'
-      responses:
-        '200':
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BuyMuseumTicketsResponse'
-              examples:
-                general_entry:
-                  $ref: '#/components/examples/BuyGeneralTicketsResponseExample'
-                event_entry:
-                  $ref: '#/components/examples/BuyEventTicketsResponseExample'
-        '400':
-          description: Bad request
-        '404':
-          description: Not found
-  /tickets/{ticketId}/qr:
-    get:
-      summary: Get ticket QR code
-      description: Return an image of your ticket with scannable QR code. Used for event entry.
-      operationId: getTicketCode
-      tags:
-        - Tickets
-      parameters:
-        - $ref: '#/components/parameters/TicketId'
-      responses:
-        '200':
-          description: Scannable event ticket in image format
-          content:
-            image/png:
-              schema:
-                $ref: '#/components/schemas/GetTicketCodeResponse'
-        '400':
-          description: Bad request
-        '404':
-          description: Not found
-components:
-  schemas:
-    SpecialEvent:
-      description: Request payload for creating new special events at the museum.
-      properties:
-        name:
-          description: Name of the special event
-          type: string
-          example: Fossil lecture
-        location:
-          description: Location where the special event is held
-          type: string
-          example: Lecture theatre
-        eventDescription:
-          description: Description of the special event
-          type: string
-          example: Our panel of experts will share their favorite fossils and explain why they are so great.
-        dates:
-          description: List of planned dates for the special event
-          type: array
-          items:
-            type: string
-            format: date
-            example: 2024-03-29
-        price:
-          description: Price of a ticket for the special event
-          type: number
-          format: float
-          example: 12.50
-
-   
-paths:
