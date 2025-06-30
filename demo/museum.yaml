@@ -1,8 +1,8 @@
-openapi: 3.0.3
+openapi: 3.0.1
 info:
   title: PUCE Banner Data API
   version: "1.0.0"
-  description: >
+  description: 
     API de lectura que proporciona datos del sistema Banner: programas académicos, períodos y catálogos de referencia.
 
 servers:
@@ -22,7 +22,7 @@ paths:
       tags:
         - Programas Académicos
       summary: Obtener programas académicos por campus
-      description: >
+      description: 
         Retorna los programas académicos vigentes por campus, detallando facultad, modalidad, nivel y descripción.
       parameters:
         - name: id
@@ -69,7 +69,7 @@ paths:
       tags:
         - Catálogos Generales
       summary: Obtener catálogos de referencia
-      description: >
+      description: 
         Retorna elementos de catálogo utilizados en registros personales o académicos.
         Ejemplos de tipo:
         - typesLegacy
