@@ -13,18 +13,9 @@ info:
  
 servers:
   - url:'https://puce.edu.ec'
-tags:
-  - name: Programas Académicos
-    description: Servicios relacionados con la consulta de programas académicos por campus
-  - name: Períodos Académicos
-    description: Servicios para obtener los períodos académicos recientes
-  - name: Catálogos Generales
-    description: Catálogos de referencia utilizados en formularios, validaciones y sincronización de datos
-
-
   
 paths:
-/banner/data/academicprograms:
+  /banner/data/academicprograms:
     get:
       summary:  Obtener programas académicos por campus
       description:  Retorna los programas académicos vigentes por campus, detallando facultad, modalidad, nivel y descripción.
@@ -54,9 +45,9 @@ paths:
                
 
         '400':
-      description: Parámetro requerido ausente o inválido
-          content:
-            application/json:
+           description: Parámetro requerido ausente o inválido
+            content:
+              application/json:
               schema:
                 $ref: '#/components/schemas/Error'
   /special-events:
