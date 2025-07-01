@@ -1,10 +1,10 @@
 openapi: 3.1.0
 info:
   title: PUCE APIS
-  description: An imaginary, but delightful Museum API for interacting with museum services and information. Built with love by Redocly.
-  version: 1.0.0
+  description: nueva e ini.
+  version: 4.0.0
   contact:
-    email: team@redocly.com
+    email: di@puce.edu.ec.com
     url: 'https://redocly.com/docs/cli/'
   x-logo:
     url: 'https://redocly.github.io/redoc/museum-logo.png'
