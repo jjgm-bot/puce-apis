@@ -36,20 +36,7 @@ paths:
       responses:
         '200':
            description: Lista de programas académicos
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/AcademicProgram'
-               
-
-        '400':
-           description: Parámetro requerido ausente o inválido
-            content:
-              application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
+   
   /special-events:
     post:
       security: []
