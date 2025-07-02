@@ -8,7 +8,7 @@ info:
     email: didesarrollo@puce.edu.ec
     url: 'https://puce.edu.ec'
   x-logo:
-    url: https://www.puce.edu.ec/wp-content/uploads/2020/09/logo.png'
+    url: 'https://www.puce.edu.ec/wp-content/uploads/2020/09/logo.png'
     altText: PUCE logo
  
 servers:
@@ -77,14 +77,14 @@ paths:
       parameters:
         - name: startDate
           in: query
-          description: The starting date to retrieve future operating hours from. Defaults to today's date.
+          description: The starting date to retrieve future operating hours from. Defaults to today date.
           schema:
             type: string
             format: date
             example: 2023-02-23
         - name: endDate
           in: query
-          description: The end of a date range to retrieve special events for. Defaults to 7 days after `startDate`.
+          description: The end of a date range to retrieve special events for. Defaults to 7 days after startDate.
           schema:
             type: string
             format: date
