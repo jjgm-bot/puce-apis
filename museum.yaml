@@ -1,9 +1,8 @@
 openapi: 3.1.0
 info:
   title: PUCE Banner Data API
-  version: "1.0.0"
+  version: 1.0.0
   description:   API de lectura que proporciona datos del sistema Banner: programas académicos, períodos y catálogos de referencia.
-
   contact:
     email: didesarrollo@puce.edu.ec
     url: 'https://puce.edu.ec'
@@ -35,7 +34,35 @@ paths:
             type: string
       responses:
         '200':
-           description: Lista de programas académicos
+          description: Programas académicos
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetMuseumHoursResponse'
+              examples:
+                default:
+                  summary: Museum opening hours
+                  value:
+                    - date: '2023-09-11'
+                      timeOpen: '09:00'
+                      timeClose: '18:00'
+                    - date: '2023-09-12'
+                      timeOpen: '09:00'
+                      timeClose: '18:00'
+                    - date: '2023-09-13'
+                      timeOpen: '09:00'
+                      timeClose: '18:00'
+                    - date: '2023-09-17'
+                      timeOpen: '09:00'
+                      timeClose: '18:00'
+                closed:
+                  summary: The museum is closed
+                  value: []
+
+        '400':
+          description: Bad request
+        '404':
+          description: Not found
    
   /special-events:
     post:
