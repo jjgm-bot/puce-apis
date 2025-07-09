@@ -1,40 +1,38 @@
 openapi: 3.1.0
 info:
-  title: PUCE Banner Data API
+  title: PUCE APIS
+  description: An imaginary, but delightful Museum API for interacting with museum services and information. Built with love by Redocly.
   version: 1.0.0
-  description:   API de lectura que proporciona datos del sistema Banner: programas académicos, períodos y catálogos de referencia.
   contact:
-    email: didesarrollo@puce.edu.ec
-    url: 'https://puce.edu.ec'
+    email: team@redocly.com
+    url: 'https://redocly.com/docs/cli/'
   x-logo:
-    url: 'https://www.puce.edu.ec/wp-content/uploads/2020/09/logo.png'
-    altText: PUCE logo
- 
+    url: 'https://redocly.github.io/redoc/museum-logo.png'
+    altText: Museum logo
+  license:
+    name: MIT
+    url: 'https://opensource.org/license/mit/ '
 servers:
-  - url:'https://puce.edu.ec'
-  
+  - url: 'https://api.fake-museum-example.com/v1'
 paths:
-  /banner/data/academicprograms:
+  /museum-hours:
     get:
-      summary:  Obtener programas académicos por campus
-      description:  Retorna los programas académicos vigentes por campus, detallando facultad, modalidad, nivel y descripción.
-      operationId: getMuseumHours11
+      summary: Get museum hours
+      description: Get upcoming museum operating hours
+      operationId: getMuseumHours
+      tags:
+        - Operations
       x-badges:
-        - name: 'PUCEG'
+        - name: 'Beta'
           position: before
           color: purple
-      tags:
-        - Programas Académicos
       parameters:
-        - name: id
-          in: query
-          required: true
-          description: Código del campus (ej: IBA, QUI)
-          schema:
-            type: string
+        - $ref: '#/components/parameters/StartDate'
+        - $ref: '#/components/parameters/PaginationPage'
+        - $ref: '#/components/parameters/PaginationLimit'
       responses:
         '200':
-          description: Programas académicos
+          description: Success
           content:
             application/json:
               schema:
@@ -63,7 +61,6 @@ paths:
           description: Bad request
         '404':
           description: Not found
-   
   /special-events:
     post:
       security: []
@@ -71,6 +68,9 @@ paths:
       summary: Create special event
       tags:
         - Events
+      x-badges:
+        - name: 'Alpha'
+          color: purple
       requestBody:
         required: true
         content:
@@ -99,19 +99,21 @@ paths:
       description: Return a list of upcoming special events at the museum.
       security: []
       operationId: listSpecialEvents
+      x-badges:
+        - name: 'Gamma'
       tags:
         - Events
       parameters:
         - name: startDate
           in: query
-          description: The starting date to retrieve future operating hours from. Defaults to today date.
+          description: The starting date to retrieve future operating hours from. Defaults to today's date.
           schema:
             type: string
             format: date
             example: 2023-02-23
         - name: endDate
           in: query
-          description: The end of a date range to retrieve special events for. Defaults to 7 days after startDate.
+          description: The end of a date range to retrieve special events for. Defaults to 7 days after `startDate`.
           schema:
             type: string
             format: date
@@ -307,6 +309,9 @@ components:
       enum:
         - event
         - general
+      x-enumDescriptions:
+        event: Special event ticket
+        general: General museum entry ticket
       example: event
     Date:
       type: string
@@ -774,6 +779,9 @@ x-tagGroups:
   - name: Purchases
     tags:
       - Tickets
+  - name: Entities
+    tags:
+      - Schemas
 
 security:
   - MuseumPlaceholderAuth: []
