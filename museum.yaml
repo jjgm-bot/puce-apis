@@ -30,7 +30,7 @@ paths:
         - name: id
           in: query
           required: true
-          description: Código del campus (ej: IBA, QUI)
+          description: Código del campus (ej. IBA, QUI)
           schema:
             type: string
       responses:
