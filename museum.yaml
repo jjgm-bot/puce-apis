@@ -31,7 +31,7 @@ paths:
           in: query
           required: true
           description: Código del campus  UIO, AMB,IBA,SDO,MAN
-          schema:
+          schema: QA
             type: string
       responses:
         '200':
