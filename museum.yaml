@@ -1,10 +1,11 @@
 openapi: 3.1.0
 info:
   title: PUCE APIS
-  description: API de lectura que proporciona datos del sistema Banner: programas académicos, períodos y catálogos de referencia.
+  description: API de lectura que proporciona datos del sistema Banner,programas académicos, períodos y catálogos de referencia.
+  version: 1.0.0
   contact:
-    email: team@redocly.com
-    url: 'https://redocly.com/docs/cli/'
+    email: di@puce.edu.ec
+    url: 'https://puce.edu.ec/'
   x-logo:
     url: 'https://redocly.github.io/redoc/museum-logo.png'
     altText: Museum logo
