@@ -7,32 +7,35 @@ info:
     email: di@puce.edu.ec
     url: 'https://puce.edu.ec/'
   x-logo:
-    url: 'https://redocly.github.io/redoc/museum-logo.png'
-    altText: Museum logo
+    url: 'https://www.puce.edu.ec/wp-content/uploads/2020/09/logo.png'
+    altText: PUCE logo
   license:
-    name: MIT
-    url: 'https://opensource.org/license/mit/ '
+    name: PUCE
+    url: 'https://puce.edu.ec'
 servers:
-  - url: 'https://api.fake-museum-example.com/v1'
+  - url: 'https://puce.edu.ec'
 paths:
-  /museum-hours:
+  /banner/data/academicprograms:
     get:
-      summary: Get museum hours
-      description: Get upcoming museum operating hours
-      operationId: getMuseumHours
-      tags:
-        - Operations
+      summary:  Obtener programas académicos por campus
+      description:  Retorna los programas académicos vigentes por campus, detallando facultad, modalidad, nivel y descripción.
+      operationId: getMuseumHours11
       x-badges:
-        - name: 'Beta'
+        - name: 'PUCEG'
           position: before
           color: purple
+      tags:
+        - Programas Académicos
       parameters:
-        - $ref: '#/components/parameters/StartDate'
-        - $ref: '#/components/parameters/PaginationPage'
-        - $ref: '#/components/parameters/PaginationLimit'
+        - name: id
+          in: query
+          required: true
+          description: Código del campus (ej: IBA, QUI)
+          schema:
+            type: string
       responses:
         '200':
-          description: Success
+          description: Programas académicos
           content:
             application/json:
               schema:
