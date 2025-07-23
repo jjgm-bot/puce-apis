@@ -15,32 +15,7 @@ info:
 servers:
   - url: 'https://puce.edu.ec'
 paths:
-  /banner/data/academicprograms:
-    get:
-      summary:  Obtener programas académicos por campus
-      description:  Retorna los programas académicos vigentes por campus, detallando facultad, modalidad, nivel y descripción.
-      operationId: getMuseumHours11
-      x-badges:
-         name: 'PUCEG'
-          position: before
-          color: purple
-      tags:
-        - name: Programas Académicos
-      parameters:
-         name: id
-          in: query
-          required: true
-          description: Código del campus  UIO, AMB,IBA,SDO,MAN
-          schema: QA
-            type: string
-      responses:
-        '200':
-          description: Programas académicos
-        '400':
-          description: Bad request
-        '404':
-          description: Not found
-  /special-events:
+    /special-events:
     post:
       security: []
       operationId: CreateSpecialEvent
