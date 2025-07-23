@@ -21,13 +21,13 @@ paths:
       description:  Retorna los programas académicos vigentes por campus, detallando facultad, modalidad, nivel y descripción.
       operationId: getMuseumHours11
       x-badges:
-        - name: 'PUCEG'
+         name: 'PUCEG'
           position: before
           color: purple
       tags:
-        - Programas Académicos
+        - name: Programas Académicos
       parameters:
-        - name: id
+         name: id
           in: query
           required: true
           description: Código del campus  UIO, AMB,IBA,SDO,MAN
@@ -36,30 +36,6 @@ paths:
       responses:
         '200':
           description: Programas académicos
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/GetMuseumHoursResponse'
-              examples:
-                default:
-                  summary: Museum opening hours
-                  value:
-                    - date: '2023-09-11'
-                      timeOpen: '09:00'
-                      timeClose: '18:00'
-                    - date: '2023-09-12'
-                      timeOpen: '09:00'
-                      timeClose: '18:00'
-                    - date: '2023-09-13'
-                      timeOpen: '09:00'
-                      timeClose: '18:00'
-                    - date: '2023-09-17'
-                      timeOpen: '09:00'
-                      timeClose: '18:00'
-                closed:
-                  summary: The museum is closed
-                  value: []
-
         '400':
           description: Bad request
         '404':
